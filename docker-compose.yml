@@ -1,0 +1,31 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "127.0.0.1:11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  model-init:
+    image: ollama/ollama:latest
+    depends_on:
+      - ollama
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["until OLLAMA_HOST=http://ollama:11434 ollama pull llama3.2; do sleep 3; done"]
+    restart: "no"
+
+  app:
+    build: .
+    depends_on:
+      model-init:
+        condition: service_completed_successfully
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: llama3.2
+      APP_HOST: 0.0.0.0
+      APP_PORT: 8000
+
+volumes:
+  ollama_data:

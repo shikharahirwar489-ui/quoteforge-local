@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f2ed" />
+    <meta name="description" content="Draft clear freelance quotes with a private, local open-weight AI model." />
+    <title>QuoteForge — a calmer way to scope work</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="QuoteForge home"><span class="brand-mark">Q</span><span>QuoteForge</span></a>
+      <span class="local-pill"><i></i> LOCAL AI · YOUR BRIEF STAYS ON YOUR MACHINE</span>
+    </header>
+
+    <main class="layout">
+      <section class="intro">
+        <p class="eyebrow">FOR INDEPENDENT WORK</p>
+        <h1>Good work starts<br />with a <em>clear quote.</em></h1>
+        <p class="lede">Turn a client brief into a thoughtful proposal, with the numbers checked before the words are written.</p>
+        <div class="how-row"><span>01 <b>Scope the work</b></span><span>02 <b>Set your rate</b></span><span>03 <b>Review the draft</b></span></div>
+        <div class="privacy-note"><span class="lock">⌑</span><div><strong>Private by default</strong><p>Your brief goes to Ollama on your own machine. No account, cloud AI API, or telemetry.</p></div></div>
+      </section>
+
+      <section class="workspace" aria-label="Quote builder">
+        <form id="quote-form" class="form-card">
+          <div class="card-heading"><div><p class="eyebrow">NEW ESTIMATE</p><h2>Tell us about the work</h2></div><span class="step">1 / 2</span></div>
+          <label>Client or business name<input name="client" maxlength="100" placeholder="e.g. Northstar Studio" required /></label>
+          <label>What are you offering?<input name="service" maxlength="100" placeholder="e.g. Product photography" required /></label>
+          <label>Project brief<textarea name="brief" rows="4" maxlength="3000" placeholder="What does the client need? Include the important details and any boundaries you already know." required></textarea><small>Keep sensitive client details out of the brief.</small></label>
+          <div class="form-grid">
+            <label>Hourly rate<div class="input-with-prefix"><span id="currency-symbol">$</span><input name="rate" type="number" min="0" step="0.01" value="75" required /></div></label>
+            <label>Estimated hours<input name="hours" type="number" min="0" step="0.5" value="8" required /></label>
+            <label>Other expenses<div class="input-with-prefix"><span id="expense-symbol">$</span><input name="expenses" type="number" min="0" step="0.01" value="0" required /></div></label>
+            <label>Currency<select name="currency"><option value="USD">USD · $</option><option value="INR">INR · ₹</option><option value="EUR">EUR · €</option><option value="GBP">GBP · £</option><option value="CAD">CAD · $</option><option value="AUD">AUD · $</option></select></label>
+          </div>
+          <div class="estimate-row"><span>Calculated estimate</span><strong id="estimate">$600.00</strong></div>
+          <button class="primary" id="draft-button" type="submit"><span>Draft my proposal</span><span aria-hidden="true">↗</span></button>
+          <p class="form-foot">AI drafts can be wrong. Review every detail before sharing.</p>
+          <div id="status" class="status" role="status" aria-live="polite"></div>
+        </form>
+
+        <section class="result-card" aria-label="Proposal draft">
+          <div class="result-head"><div><p class="eyebrow">YOUR PROPOSAL</p><h2 id="result-title">A clear plan, in your words.</h2></div><button id="copy-button" class="copy-button" type="button" disabled>Copy draft</button></div>
+          <div id="empty-state" class="empty-state"><div class="paper-icon">✳</div><p>Your draft will appear here.</p><span>First, add a brief and your estimate details.</span></div>
+          <pre id="proposal" class="proposal" hidden></pre>
+          <div id="result-meta" class="result-meta" hidden><span class="model-dot"></span><span>Drafted with <b id="model-name">llama3.2</b></span><span>·</span><span>Estimate: <b id="result-total">$600.00</b></span></div>
+        </section>
+      </section>
+    </main>
+    <footer><span>QuoteForge</span><span>Open-weight AI. Your numbers stay deterministic.</span><a href="https://github.com/">Built in the open ↗</a></footer>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
